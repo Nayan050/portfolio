@@ -1,0 +1,67 @@
+# Security headers.
+#
+# Read natively by Cloudflare Pages and Netlify. Vite copies this file to the
+# build output verbatim. On a host that ignores it (GitHub Pages, S3) set the
+# same headers there instead — the site works without them, it is just less
+# defended.
+#
+# The Content-Security-Policy is the important line. Every card on the three
+# hub pages is built from data fetched out of somebody else's system, and while
+# each value is now encoded on output, a CSP is the layer that holds when a
+# single interpolation is missed.
+#
+# script-src is 'self' with no 'unsafe-inline'. That matters: 'unsafe-inline'
+# is exactly what permits an injected `onerror=` handler, so a policy carrying
+# it would not have blocked the injection this replaced. Every inline script
+# was moved into a file (assets/js/theme-init.js, assets/js/hub.js) to make
+# this possible.
+#
+# style-src keeps 'unsafe-inline' — the markup and the hub scripts both set
+# style attributes, and CSS injection is a far weaker vector than script.
+#
+# form-action 'none' is correct even with a contact form: the form never
+# submits, it posts through fetch(), which connect-src governs.
+#
+# connect-src is an ALLOWLIST, so it has to be kept in step with the proxy pool
+# in assets/js/news.js. It had drifted: it still named allorigins, codetabs and
+# thingproxy (all removed from the code) and named neither corsfix nor
+# cors.eu.org (both added). Deployed like that, the browser would have blocked
+# the only proxy that can reach BleepingComputer, CrowdStrike, DataBreaches.net
+# and the 1.5MB CISA KEV catalogue — reproducing the original "news is slow and
+# half-empty" bug, but only in production, where it is hardest to spot.
+#
+# The feed hosts themselves (cisa.gov, bleepingcomputer.com, ...) are NOT listed
+# and must not be: they are fetched server-side by the proxy, so the browser
+# only ever connects to the proxy origin.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; worker-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://api.web3forms.com https://api.rss2json.com https://api.github.com https://services.nvd.nist.gov https://en.wikipedia.org https://api.duckduckgo.com https://api.mathjs.org https://corsproxy.io https://proxy.corsfix.com https://cors.eu.org; frame-src https://drive.google.com; form-action 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), accelerometer=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-Frame-Options: DENY
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# The service worker must never be cached by the HTTP layer, or a change to
+# the caching rules could not reach a browser that already has the old one.
+/sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
+
+# Hashed filenames are immutable, so they can be cached for a year.
+/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# The hub scripts are not hashed and are edited in place, so they must revalidate.
+/assets/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/hub.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/data/*
+  Cache-Control: public, max-age=3600

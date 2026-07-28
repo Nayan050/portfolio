@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NA">
+  <!--
+    Plain "NA" monogram — no tile, no container. Outlines, not <text>: an SVG
+    favicon gets no webfont, and a system-font fallback would reflow the letters
+    differently on every OS. These are Georgia Bold, condensed to 78% so two
+    caps in a square box can scale up instead of shrinking to fit the width —
+    at natural width they only reach 47% of the tile height and go illegible
+    around 16px.
+
+    This file is the source of truth. /assets/images/favicon.ico is the same
+    outline rasterised at 16/32/48/64 for browsers that will not take an SVG
+    icon; regenerate it from here if the mark ever changes.
+  -->
+  <!--
+    ONE colour, no `prefers-color-scheme` switch. The first version flipped to
+    cream in dark mode and came out invisible in practice — that query is only
+    honoured on some of the surfaces an icon lands on (tab strip, bookmark bar,
+    standalone view, the .ico consumers), so a mark that depends on it is
+    invisible on whichever surface ignores it.
+
+    #d6524a instead. A single colour cannot be high-contrast on both a light
+    and a dark tab strip, but relative luminance ~0.21 maximises the WORST of
+    the two: ~3.0:1 against #dddde0 AND ~3.0:1 against #202124, which clears
+    the 3:1 bar for non-text contrast either way. The brand oxblood #7a2e2e
+    sits at 0.046 — 7.5:1 on light, 1.5:1 on dark, hence the disappearing act.
+    Checked by eye at 16/24/32px on light, dark and white before settling.
+  -->
+  <path fill="#d6524a" d="M32.38 17.17C32.03 17.22 31.54 17.31 30.9 17.43C30.26 17.56 29.68 17.87 29.16 18.36C28.71 18.78 28.38 19.51 28.19 20.55C28 21.59 27.9 23.11 27.9 25.11L27.9 49.15L24.61 49.15L8.27 23.15L8.27 38.93C8.27 40.89 8.37 42.38 8.57 43.4C8.78 44.42 9.11 45.17 9.56 45.64C9.89 45.99 10.42 46.3 11.15 46.57C11.88 46.84 12.46 47.02 12.89 47.11L12.89 48.96L1.61 48.96L1.61 47.11C2.09 47.06 2.64 46.95 3.27 46.77C3.89 46.59 4.41 46.31 4.83 45.93C5.31 45.47 5.64 44.78 5.82 43.85C6 42.93 6.09 41.38 6.09 39.19L6.09 23.26C6.09 22.47 5.99 21.73 5.8 21.02C5.61 20.32 5.31 19.72 4.9 19.21C4.47 18.67 3.97 18.25 3.41 17.94C2.85 17.63 2.21 17.39 1.5 17.22L1.5 15.32L11.38 15.32L25.72 38.07L25.72 25.35C25.72 23.32 25.62 21.82 25.41 20.83C25.2 19.85 24.87 19.11 24.41 18.64C24.05 18.28 23.52 17.97 22.82 17.71C22.12 17.44 21.55 17.27 21.12 17.17L21.12 15.32L32.38 15.32ZM62.5 48.96L48.21 48.96L48.21 47.11C48.87 47.05 49.65 46.9 50.55 46.65C51.45 46.41 51.9 46.1 51.9 45.74C51.9 45.61 51.89 45.47 51.87 45.31C51.85 45.15 51.8 44.94 51.71 44.67L49.47 37.7L40.42 37.7C40.21 38.35 39.98 39.11 39.73 39.98C39.48 40.85 39.26 41.62 39.07 42.3C38.84 43.19 38.7 43.83 38.66 44.22C38.62 44.62 38.6 44.89 38.6 45.05C38.6 45.56 38.89 45.99 39.49 46.34C40.09 46.7 41.08 46.95 42.47 47.11L42.47 48.96L31.71 48.96L31.71 47.11C32.12 47.08 32.58 47 33.09 46.86C33.6 46.73 34.01 46.54 34.3 46.31C34.81 45.93 35.24 45.46 35.59 44.91C35.94 44.35 36.23 43.7 36.47 42.94C37.9 38.5 39.33 34.05 40.76 29.59C42.2 25.14 43.79 20.22 45.53 14.85L49.22 14.85C51.64 22.47 53.53 28.49 54.9 32.91C56.27 37.34 57.43 41 58.4 43.91C58.56 44.39 58.76 44.82 59.01 45.2C59.25 45.59 59.6 45.96 60.06 46.31C60.4 46.56 60.81 46.75 61.26 46.88C61.72 47 62.13 47.08 62.5 47.11ZM48.71 35.35L44.92 23.2L41.17 35.35Z"/>
+</svg>

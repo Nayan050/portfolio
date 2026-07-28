@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nayan Acharya · Security Researcher</title>
+    <meta
+      name="description"
+      content="Nayan Acharya, also known as cyberzod, is a Security Researcher in Kathmandu, Nepal. Threat detection, DevSecOps, VAPT, bug bounty write-ups, and hardening to international standards including ISO 27001:2022, NIST CSF and PCI DSS."
+    />
+    <!-- No `keywords` meta. Google stopped using it in 2009, Bing treats it as
+         a spam signal, and the terms it carried are all already in the title,
+         description and JSON-LD `knowsAbout`. It was pure payload. -->
+    <meta name="author" content="Nayan Acharya (cyberzod)" />
+    <!-- index,follow is already the default; this is here for the preview
+         limits. `max-image-preview:large` is what lets Google show the OG card
+         instead of a thumbnail, and `max-snippet:-1` lifts the description
+         length cap. Both are opt-in — without them you get the conservative
+         defaults. -->
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Nayan Acharya" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="profile:first_name" content="Nayan" />
+    <meta property="profile:last_name" content="Acharya" />
+    <meta property="profile:username" content="cyberzod" />
+    <meta property="og:title" content="Nayan Acharya · Security Researcher" />
+    <meta
+      property="og:description"
+      content="Security Researcher. Real-time threat detection, offensive testing, bug bounty write-ups, and ISO 27001:2022 compliance."
+    />
+    <meta property="og:image" content="/assets/images/og-card.png" />
+    <meta property="og:image:width" content="1512" />
+    <meta property="og:image:height" content="794" />
+    <meta
+      property="og:image:alt"
+      content="Nayan Acharya, Security Researcher (cyberzod). Breaking what's trusted. Securing what matters."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nayan Acharya · Security Researcher" />
+    <meta
+      name="twitter:description"
+      content="Security Researcher in Kathmandu. Threat detection, DevSecOps, VAPT, bug bounty and ISO 27001:2022."
+    />
+    <meta name="twitter:image" content="/assets/images/og-card.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Nayan Acharya, Security Researcher (cyberzod). Breaking what's trusted. Securing what matters."
+    />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#191a1c" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f3e9" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/assets/images/favicon.ico" />
+    <!-- TODO: add <link rel="canonical" href="https://YOUR-DOMAIN/" />, the
+         matching og:url, absolute og:image/twitter:image, and the `url`/`@id`
+         fields in the JSON-LD below, once the domain is confirmed. Left out
+         rather than guessed: a canonical pointing at the wrong host tells
+         search engines this page is a duplicate of one that does not exist. -->
+
+    <!--
+      Identity, stated in the one format search engines parse rather than infer.
+
+      `sameAs` is the part that matters for a name query: it is what lets Google
+      collapse this page, the GitHub account, the LinkedIn profile and the Medium
+      byline into a single entity instead of four unrelated documents that happen
+      to share a name. Nothing else on the page can assert that.
+
+      Everything here is already stated in visible copy on the site — inventing
+      structured data the page does not back up is what gets rich results
+      revoked.
+
+      On the CSP: `script-src 'self'` does not block this. A <script> with a
+      non-JavaScript `type` is a data block, never executed, so it is not
+      subject to script-src at all. This does not reopen the inline-script hole
+      the CSP was tightened to close.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Nayan Acharya",
+        "alternateName": "cyberzod",
+        "jobTitle": "Security Researcher",
+        "description": "Security Researcher working across threat detection, DevSecOps, VAPT and AI security. Information Security Analyst at Foneloan (F1Soft Group), Kathmandu.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Kathmandu",
+          "addressCountry": "NP"
+        },
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Foneloan",
+          "parentOrganization": { "@type": "Organization", "name": "F1Soft Group" }
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Jain (Deemed-to-be) University"
+        },
+        "knowsAbout": [
+          "Information security",
+          "Threat detection and response",
+          "Security information and event management",
+          "DevSecOps",
+          "Vulnerability assessment and penetration testing",
+          "Bug bounty",
+          "LLM and AI security",
+          "ISO/IEC 27001:2022",
+          "NIST Cybersecurity Framework",
+          "PCI DSS"
+        ],
+        "sameAs": [
+          "https://github.com/Nayan050",
+          "https://www.linkedin.com/in/nayan050/",
+          "https://medium.com/@nayanacharya050",
+          "https://t.me/NayanAcharya"
+        ]
+      }
+    </script>
+    <!-- Blocking on purpose: resolves the theme before first paint. External
+         rather than inline so the CSP can refuse `script-src 'unsafe-inline'`,
+         which is the keyword that would otherwise permit an injected
+         `onerror=` handler. -->
+    <script src="/assets/js/theme-init.js"></script>
+    <!-- Caches the build on disk so repeat visits load without the network.
+         No-op on localhost — see the file for why. -->
+    <script src="/assets/js/sw-register.js" defer></script>
+    <script type="module" crossorigin src="/assets/index-CIRYMGvo.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-xESKVwWO.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-DN-gO2jw.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--
+      Everything on this page is rendered by React, so the served HTML has an
+      empty <body>. Googlebot does execute JavaScript, but it does so on a
+      second pass that can lag the first crawl by days, and a single runtime
+      error means it indexes nothing at all. Plenty of other crawlers — Bing's
+      deeper passes, LinkedIn and Slack unfurlers, most SEO and AI crawlers —
+      never render at all and would see a blank document.
+
+      This is the same identity the page renders, in static markup, so there is
+      no discrepancy between what a crawler reads and what a visitor sees. It
+      is in <noscript> rather than inside #root because React clears its
+      container on mount: content there would render and then be visibly
+      thrown away on slow connections.
+
+      The three hub pages are hand-written static HTML and are already fully
+      crawlable without this.
+    -->
+    <noscript>
+      <h1>Nayan Acharya</h1>
+      <p><strong>Security Researcher</strong> (cyberzod) · Kathmandu, Nepal</p>
+      <p>
+        Information Security Analyst at Foneloan (F1Soft Group). Threat detection and
+        response, DevSecOps, vulnerability assessment and penetration testing, LLM and AI
+        security, and hardening to ISO/IEC 27001:2022, NIST CSF and PCI DSS.
+      </p>
+      <ul>
+        <li><a href="/news/">Cyber News Hub</a> — live threat intelligence feed</li>
+        <li><a href="/tools/">Security Tool Library</a> — curated tooling by category</li>
+        <li><a href="/knowledge/">Knowledge Base</a> — searchable topic library</li>
+      </ul>
+      <ul>
+        <li><a href="https://github.com/Nayan050" rel="me">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/nayan050/" rel="me">LinkedIn</a></li>
+        <li><a href="https://medium.com/@nayanacharya050" rel="me">Medium</a></li>
+      </ul>
+    </noscript>
+  </body>
+</html>
