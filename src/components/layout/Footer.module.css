@@ -1,0 +1,116 @@
+.footer {
+  border-top: 1px solid var(--border);
+  padding-block: var(--space-10) var(--space-4);
+  background: var(--bg);
+  position: relative;
+  z-index: 2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+.brand {
+  max-width: 26rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1;
+}
+
+.dot {
+  color: var(--accent-text);
+}
+
+.tagline {
+  margin-top: var(--space-2);
+  color: var(--text-2);
+  font-size: var(--text-small);
+}
+
+.time {
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.colTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--space-2);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-2);
+  font-size: var(--text-small);
+  transition: color var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--accent-text);
+}
+
+.linkIcon {
+  opacity: 0.75;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  color: var(--text-3);
+  font-size: var(--text-micro);
+}
+
+/* Same tertiary pattern as card CTAs: display face + accent arrow */
+.toTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-1);
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.toTop:hover {
+  color: var(--accent-text);
+}
+
+.toTopIcon {
+  color: var(--accent-text);
+  transform: rotate(180deg); /* static flip: arrow points up */
+}
+
+@media (min-width: 720px) {
+  .grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--space-4);
+  }
+}

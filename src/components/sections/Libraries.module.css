@@ -1,0 +1,221 @@
+.grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+.cell {
+  min-width: 0;
+}
+
+/* Each hub carries its own tone from the shared discipline palette, so the
+   three stop reading as one grey block repeated. Same construction as the
+   project cards: stripe, tone wash, hatch, watermark numeral. */
+.card {
+  position: relative;
+  height: 100%;
+  border: 1px solid var(--border);
+  border-top: 3px solid color-mix(in srgb, var(--seal) 70%, transparent);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+  overflow: hidden;
+  transition:
+    border-top-width var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.card:hover {
+  border-top-width: 6px;
+  border-color: color-mix(in srgb, var(--seal) 30%, var(--border));
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+/* --------------------------- Decorative layers --------------------------- */
+
+.glow {
+  position: absolute;
+  top: -35%;
+  right: -20%;
+  width: 65%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--seal) 22%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.card:hover .glow {
+  opacity: 1;
+}
+
+.hatch {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--seal) 12%, transparent) 0 1px,
+    transparent 1px 7px
+  );
+  opacity: 0.35;
+  mask-image: linear-gradient(160deg, black 0%, transparent 62%);
+  -webkit-mask-image: linear-gradient(160deg, black 0%, transparent 62%);
+}
+
+/* The hub's own kicker number — /news/ is 01 on its page and 01 here. */
+.index {
+  position: absolute;
+  top: -0.12em;
+  right: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 4.5rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: color-mix(in srgb, var(--seal) 13%, transparent);
+  pointer-events: none;
+  user-select: none;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.card:hover .index {
+  color: color-mix(in srgb, var(--seal) 22%, transparent);
+}
+
+/* -------------------------------- Content -------------------------------- */
+
+.link {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  height: 100%;
+}
+
+/* Icon and eyebrow on one line, so the card opens with a single band rather
+   than a stacked block that pushed the title down. */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: var(--space-1);
+}
+
+.iconWrap {
+  display: grid;
+  place-items: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-m);
+  background: color-mix(in srgb, var(--seal) 12%, transparent);
+  color: var(--seal);
+  border: 1px solid color-mix(in srgb, var(--seal) 35%, transparent);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.card:hover .iconWrap {
+  background: var(--seal);
+  color: var(--accent-ink);
+}
+
+.meta {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--seal);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-1);
+}
+
+.desc {
+  font-size: var(--text-small);
+  line-height: 1.65;
+  color: var(--text-2);
+}
+
+/* What is actually in there, in numbers — the thing a visitor wants before
+   deciding whether to open a new tab. */
+.note {
+  margin-top: var(--space-1);
+  padding-top: var(--space-1);
+  border-top: 1px dashed color-mix(in srgb, var(--seal) 25%, var(--border));
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.01em;
+  color: var(--text-3);
+}
+
+/* Pinned to the card foot so CTAs align across the row */
+.cta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--text-1);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.card:hover .cta {
+  color: var(--seal);
+}
+
+.ctaLabel {
+  margin-right: auto;
+}
+
+.ctaIcon {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  border: 1px solid color-mix(in srgb, var(--seal) 32%, var(--border));
+  border-radius: var(--radius-full);
+  color: var(--seal);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.card:hover .ctaIcon {
+  background: var(--seal);
+  border-color: var(--seal);
+  color: var(--accent-ink);
+  transform: translateX(2px);
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+}

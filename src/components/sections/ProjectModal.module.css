@@ -1,0 +1,224 @@
+.dialog {
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100dvh;
+  margin: 0;
+  z-index: var(--z-modal);
+}
+
+.dialog[open] {
+  display: block;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--scrim);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.content {
+  position: relative;
+  width: min(58rem, 100%);
+  max-height: min(50rem, 90dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-modal);
+  padding: clamp(var(--space-3), 4.5vw, var(--space-6));
+}
+
+.close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--text-2);
+  z-index: 2;
+  transition:
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.close:hover {
+  color: var(--text-1);
+  border-color: var(--border-strong);
+}
+
+.head {
+  padding-right: var(--space-8);
+}
+
+.title {
+  margin-top: var(--space-1);
+  max-width: var(--measure-tight);
+  font-size: var(--text-h2);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+}
+
+.tagline {
+  margin-top: var(--space-2);
+  max-width: var(--measure-lead);
+  color: var(--text-2);
+  font-size: var(--text-lead);
+  line-height: var(--leading-relaxed);
+}
+
+.stack {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.block {
+  margin-top: var(--space-6);
+}
+
+.blockTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--space-2);
+}
+
+.challenge {
+  max-width: var(--measure);
+  font-size: var(--text-lead);
+  color: var(--text-1);
+  line-height: var(--leading-body);
+  text-align: var(--body-align);
+  hyphens: var(--body-hyphens);
+}
+
+/* Horizontal process timeline */
+.timeline {
+  list-style: none;
+  padding: 0 0 var(--space-1);
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  border-radius: var(--radius-s);
+}
+
+.timeline:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.step {
+  position: relative;
+  flex: 0 0 min(68vw, 14.5rem);
+  padding-right: var(--space-3);
+  scroll-snap-align: start;
+}
+
+/* Connector line running through the step markers */
+.step::before {
+  content: '';
+  position: absolute;
+  top: 0.875rem;
+  left: 2.25rem;
+  right: 0.5rem;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.step:last-child::before {
+  display: none;
+}
+
+.stepNum {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.stepTitle {
+  margin-top: var(--space-2);
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+}
+
+.stepText {
+  margin-top: var(--space-half);
+  font-size: var(--text-small);
+  color: var(--text-2);
+  line-height: var(--leading-relaxed);
+}
+
+.outcomes {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.outcome {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.625rem;
+  align-items: start;
+  max-width: var(--measure);
+  color: var(--text-2);
+  font-size: var(--text-small);
+  line-height: var(--leading-relaxed);
+}
+
+.outcomeIcon {
+  margin-top: 0.25rem;
+  color: var(--accent-text);
+  flex-shrink: 0;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+}
+
+.footnote {
+  margin-top: var(--space-6);
+  max-width: var(--measure);
+  font-size: var(--text-small);
+  color: var(--text-3);
+  line-height: var(--leading-relaxed);
+  font-style: italic;
+}
+

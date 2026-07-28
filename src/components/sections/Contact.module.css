@@ -1,0 +1,240 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+.pitch {
+  max-width: var(--measure-lead);
+  font-size: var(--text-lead);
+  color: var(--text-2);
+  line-height: var(--leading-body);
+  text-align: var(--body-align);
+  hyphens: var(--body-hyphens);
+}
+
+/* Hairline-separated info blocks with micro-labels */
+.block {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.blockLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--space-2);
+}
+
+.emailLink {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2.2vw, 1.625rem);
+  font-weight: 600;
+  letter-spacing: var(--tracking-snug);
+  line-height: var(--leading-tight);
+  color: var(--text-1);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size var(--dur-slow) var(--ease-out), color var(--dur-base) var(--ease-out);
+  padding-bottom: 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.emailLink:hover {
+  color: var(--accent-text);
+  background-size: 100% 2px;
+}
+
+.socials {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--text-2);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.socialLink:hover {
+  color: var(--accent-text);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.locale {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-2);
+  font-size: var(--text-small);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-l);
+  background: var(--surface);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-m);
+  background: var(--bg-elev);
+  color: var(--text-1);
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--text-3);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.inputError,
+.inputError:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+.error {
+  color: var(--danger);
+  font-size: var(--text-micro);
+  font-weight: 500;
+}
+
+.honeypot {
+  display: none;
+}
+
+/* Same family as the primary Button: gradient pill */
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 1rem var(--space-3);
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-accent);
+  background-size: 160% 100%;
+  background-position: 0% 0;
+  color: var(--accent-ink);
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    background-position var(--dur-slow) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+.submit:hover:enabled {
+  background-position: 95% 0;
+  box-shadow: var(--shadow-card);
+}
+
+.submit:disabled {
+  opacity: 0.75;
+  cursor: progress;
+}
+
+.submitSuccess {
+  background-image: none;
+  background-color: var(--success);
+  color: var(--accent-ink);
+}
+
+.submitError {
+  background-image: none;
+  background-color: var(--danger);
+  color: #fff;
+}
+
+.liveRegion {
+  min-height: 1.5rem;
+}
+
+.feedback {
+  font-size: var(--text-small);
+  font-weight: 500;
+  line-height: var(--leading-relaxed);
+}
+
+/* The send failed, so the fallback address has to be one click, not
+   something to retype. */
+.feedbackLink {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
+.feedbackSuccess {
+  color: var(--success);
+}
+
+.feedbackError {
+  color: var(--danger);
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr 1.1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+}

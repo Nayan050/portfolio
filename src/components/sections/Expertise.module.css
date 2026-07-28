@@ -1,0 +1,223 @@
+.wrap {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.tablist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+/* Same pill family as buttons and project filters */
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.125rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-1);
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition:
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.tab:hover {
+  color: var(--seal);
+  border-color: color-mix(in srgb, var(--seal) 65%, transparent);
+  background: color-mix(in srgb, var(--seal) 10%, transparent);
+}
+
+.tabNum {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.tab:hover .tabNum {
+  color: var(--seal);
+}
+
+/* The selected discipline fills with its own colour */
+.tabActive,
+.tabActive:hover {
+  background: var(--seal);
+  border-color: transparent;
+  color: var(--accent-ink);
+}
+
+.tabActive .tabNum,
+.tabActive:hover .tabNum {
+  color: color-mix(in srgb, var(--accent-ink) 65%, transparent);
+}
+
+/* The active discipline's colour carries onto the panel edge, so switching
+   tabs visibly changes the surface and not just the words on it. */
+.panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-left: 3px solid color-mix(in srgb, var(--seal) 70%, transparent);
+  border-radius: var(--radius-l);
+  background: var(--bg);
+  padding: clamp(var(--space-3), 4vw, var(--space-5));
+  outline: none;
+}
+
+/* --------------------------- Decorative layers --------------------------- */
+
+.glow {
+  position: absolute;
+  top: -30%;
+  right: -12%;
+  width: 42%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--seal) 18%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.hatch {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in srgb, var(--seal) 10%, transparent) 0 1px,
+    transparent 1px 8px
+  );
+  opacity: 0.3;
+  mask-image: linear-gradient(200deg, transparent 45%, black 100%);
+  -webkit-mask-image: linear-gradient(200deg, transparent 45%, black 100%);
+}
+
+/* Bottom-right, where the reserved min-height leaves room on the shorter
+   panels — the gap becomes deliberate rather than empty. */
+.index {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2.5rem);
+  bottom: -0.08em;
+  font-family: var(--font-heading);
+  font-size: clamp(5rem, 12vw, 9rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: color-mix(in srgb, var(--seal) 10%, transparent);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Content clears the decorative layers. */
+.panelHead,
+.panelBody {
+  position: relative;
+  z-index: 1;
+}
+
+/* Reserve the height of the tallest panel so switching tabs doesn't make
+   the page jump; there is no animation to smooth a reflow. Measured at
+   the widest layout, so re-check if a panel gains activities or tools. */
+@media (min-width: 860px) {
+  .panel {
+    min-height: 32rem;
+  }
+}
+
+.panel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.panelHead {
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.panelTitle {
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-snug);
+  color: var(--seal);
+}
+
+.panelSummary {
+  margin-top: var(--space-2);
+  max-width: var(--measure);
+  color: var(--text-2);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+  text-align: var(--body-align);
+  hyphens: var(--body-hyphens);
+}
+
+.panelBody {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.colLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: var(--space-2);
+}
+
+.activities {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.activity {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.625rem;
+  align-items: start;
+  max-width: var(--measure);
+  color: var(--text-2);
+  font-size: var(--text-small);
+  line-height: var(--leading-relaxed);
+}
+
+.activityIcon {
+  margin-top: 0.3125rem;
+  color: var(--seal);
+  flex-shrink: 0;
+}
+
+.tools {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  align-content: flex-start;
+}
+
+@media (min-width: 860px) {
+  .panelBody {
+    grid-template-columns: 1.35fr 1fr;
+    gap: var(--space-6);
+  }
+}

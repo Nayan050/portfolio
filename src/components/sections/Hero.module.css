@@ -1,0 +1,429 @@
+/* Exactly one screen: the next section must not peek in below the fold.
+   min-height (not height) so the content can still grow on short viewports. */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-h);
+  overflow: clip;
+  outline: none;
+}
+
+/* ------------------------------- Backdrop -------------------------------- */
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Dot grid, faded out toward the edges so it never fights the text */
+.dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, black 15%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, black 15%, transparent 78%);
+  opacity: 0.5;
+}
+
+.wash {
+  position: absolute;
+  top: -25%;
+  right: -10%;
+  width: clamp(24rem, 50vw, 44rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 45%, var(--aurora-1), transparent 68%);
+  filter: blur(80px);
+}
+
+/* -------------------------------- Layout --------------------------------- */
+
+/* Vertical rhythm is viewport-aware: on short windows (a 1366x768 laptop
+   leaves ~640px) the gaps and title shrink so the section still fits one
+   screen instead of pushing About into view. */
+.inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-block: clamp(1rem, 3vh, 2rem);
+}
+
+/* -------------------------------- Content -------------------------------- */
+
+/* The badge states the two halves of the job and then draws them. The rule
+   under "Breaking" is fractured; the rule under "Securing" is continuous.
+   A slow highlight passes across the whole badge, like a scan. */
+.status {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1.125rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--bg) 65%, transparent);
+  font-size: var(--text-small);
+  color: var(--text-2);
+  overflow: hidden;
+}
+
+/* One knob for both the beam and the rule it repairs, so they cannot drift
+   out of step. The sweep occupies the last 48% of the cycle: ~6.2s of travel,
+   then ~6.8s of rest before the next pass. */
+.status {
+  --scan-cycle: 13s;
+}
+
+.status::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Soft flanks around a bright core, so it reads as a beam with an edge
+     rather than a wash drifting past. Widened from a 20% band to 44%: at the
+     old width and speed the pass was over before the eye found it. */
+  background: linear-gradient(
+    100deg,
+    transparent 28%,
+    var(--scan) 39%,
+    var(--scan-core) 50%,
+    var(--scan) 61%,
+    transparent 72%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  /* linear, not ease-out.
+
+     With an ease-out curve the beam covered 85% of its travel in the first
+     1.7s and then crept the rest of the way off-screen over 4.5s — so
+     lengthening the cycle did almost nothing for the part you can actually
+     see. Measured at 65% of the cycle the beam was already at 131%, past the
+     right edge. Constant speed spends the whole window crossing the badge. */
+  animation: statusScan var(--scan-cycle) linear infinite;
+}
+
+/* Parked off-screen for the first half of the cycle, so the pass is an event
+   you catch rather than a loop running in your peripheral vision. */
+@keyframes statusScan {
+  0%,
+  52% {
+    background-position: -60% 0;
+  }
+  100% {
+    background-position: 165% 0;
+  }
+}
+
+.statusBreak,
+.statusSecure {
+  position: relative;
+  padding-bottom: 4px;
+  white-space: nowrap;
+}
+
+.statusBreak::after,
+.statusSecure::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+}
+
+.statusBreak {
+  color: var(--text-3);
+}
+
+/* Fractured rule: the trust that got broken */
+.statusBreak::after {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--text-3) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+/* A solid segment rides the same beam along the broken rule, so the gaps
+   close where the scan is and fall open again behind it. */
+.statusBreak::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    transparent 24%,
+    var(--text-2) 38%,
+    var(--text-1) 50%,
+    var(--text-2) 62%,
+    transparent 76%
+  );
+  background-size: 240% 100%;
+  background-repeat: no-repeat;
+  /* Same linear curve as the beam, or the rule would knit itself back
+     together on a different schedule from the light passing over it. */
+  animation: statusRepair var(--scan-cycle) linear infinite;
+}
+
+/* Must hold the same 52% park as statusScan or the rule would knit itself
+   back together somewhere the beam is not. */
+@keyframes statusRepair {
+  0%,
+  52% {
+    background-position: -75% 0;
+  }
+  100% {
+    background-position: 190% 0;
+  }
+}
+
+/* Deliberately exempt from the global reduced-motion reset in base.css.
+
+   base.css neutralises animation-duration/iteration-count on everything for
+   visitors who ask for less motion. This badge is the one exception, by an
+   explicit decision: it is the hero's only motion and the site is meant to
+   show it. The rule below re-asserts the sweep, out-specifying the universal
+   selector it would otherwise lose to.
+
+   The rest of the reset still applies, and any animation added later is
+   suppressed by default — you have to opt out here, on purpose, as this does. */
+@media (prefers-reduced-motion: reduce) {
+  .status::before,
+  .statusBreak::before {
+    animation-duration: var(--scan-cycle) !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+.statusSecure {
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+/* Whole rule: the thing that held */
+.statusSecure::after {
+  background: var(--text-1);
+}
+
+.statusSeam {
+  width: 1px;
+  height: 0.875rem;
+  flex-shrink: 0;
+  background: var(--border-strong);
+}
+
+@media (max-width: 599px) {
+  .status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+    border-radius: var(--radius-l);
+  }
+  .statusSeam {
+    display: none;
+  }
+}
+
+.title {
+  margin-top: clamp(0.75rem, 2.5vh, 1.5rem);
+  /* vh term caps the size on short screens, vw on narrow ones */
+  font-size: clamp(2.5rem, min(6.5vw, 8.5vh), 4.5rem);
+  font-weight: 400;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+}
+
+.line {
+  display: block;
+}
+
+/* Two-column intro keeps the measure readable while spanning the page */
+.intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin-top: clamp(1rem, 3vh, 2rem);
+  padding-top: clamp(1rem, 2.5vh, 1.5rem);
+  border-top: 1px solid var(--border);
+}
+
+.role {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 500;
+  color: var(--text-1);
+}
+
+/* Research / bug-bounty handle */
+.handle {
+  margin-top: var(--space-half);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+}
+
+/* Epigraph. The aphorism is set as a quotation in the serif so it carries on
+   its own; the gloss sits beneath in the UI face and does the explaining.
+   Deliberately ragged, not justified: display type this short has too few
+   words per line to distribute, and justifying it would open gaps. */
+.creed {
+  position: relative;
+  max-width: var(--measure-lead);
+  padding-left: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+/* Opening mark hangs in the margin; the closing mark trails the last word.
+   Both share one font-size so the pair always matches at any viewport. */
+.creed::before,
+.creedQuote::after {
+  font-family: var(--font-heading);
+  font-size: clamp(2.75rem, 5vw, 4rem);
+  color: color-mix(in srgb, var(--accent) 32%, transparent);
+  pointer-events: none;
+}
+
+.creed::before {
+  content: '\201C';
+  position: absolute;
+  left: 0;
+  top: -0.16em;
+  line-height: 1;
+}
+
+/* line-height 0 keeps the oversized glyph from stretching the last line box */
+.creedQuote::after {
+  content: '\201D';
+  line-height: 0;
+  vertical-align: -0.42em;
+  margin-left: 0.04em;
+}
+
+.creedQuote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1875rem, 1.3vw + 0.85rem, 1.6875rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-1);
+  text-wrap: pretty;
+}
+
+.creedGloss {
+  margin-top: var(--space-2);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--text-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: clamp(1rem, 3vh, 2rem);
+}
+
+/* ------------------------------ Footer bar ------------------------------- */
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: clamp(1.25rem, 4vh, 2.5rem);
+  padding-top: clamp(1rem, 2.5vh, 1.5rem);
+  border-top: 1px solid var(--border);
+}
+
+.socials {
+  display: flex;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+}
+
+.socialLink {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text-2);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.socialLink:hover {
+  color: var(--text-1);
+  border-color: var(--border-strong);
+  background: var(--surface);
+}
+
+.hubs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+}
+
+.hubsLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.hubsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+}
+
+.hubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.375rem 0.8125rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  color: var(--text-2);
+  font-size: var(--text-small);
+  font-weight: 500;
+  transition:
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.hubLink:hover {
+  color: var(--text-1);
+  border-color: var(--border-strong);
+  background: var(--surface);
+}
+
+@media (min-width: 860px) {
+  .intro {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+}

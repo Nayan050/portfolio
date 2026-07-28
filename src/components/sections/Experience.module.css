@@ -1,0 +1,124 @@
+.timeline {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-6);
+  position: relative;
+}
+
+/* Vertical rail */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.3125rem;
+  width: 1px;
+  background: var(--border-strong);
+}
+
+.item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1) var(--space-6);
+  padding-left: var(--space-4);
+}
+
+.marker {
+  position: absolute;
+  top: 0.4375rem;
+  left: 0;
+  width: 0.6875rem;
+  height: 0.6875rem;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--bg-elev);
+}
+
+/* The role you actually hold gets a filled marker with a halo, so the top of
+   the rail is legible at a glance. Every marker looked identical before, and
+   the "NOW" pill was the only thing carrying it. */
+.markerCurrent {
+  background: var(--accent);
+  box-shadow:
+    0 0 0 4px var(--bg-elev),
+    0 0 0 7px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.when {
+  color: var(--text-3);
+}
+
+.period {
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--text-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.now {
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.place {
+  font-size: var(--text-small);
+  margin-top: var(--space-half);
+}
+
+.role {
+  font-size: var(--text-h3);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-snug);
+}
+
+.org {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: var(--space-half);
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--accent-text);
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+a.org:hover {
+  opacity: 0.75;
+}
+
+.highlights {
+  margin-top: var(--space-2);
+  padding-left: 1.125rem;
+  display: grid;
+  gap: var(--space-1);
+  max-width: var(--measure);
+  color: var(--text-2);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  text-align: var(--body-align);
+  hyphens: var(--body-hyphens);
+}
+
+.highlights li::marker {
+  color: var(--accent-text);
+}
+
+@media (min-width: 720px) {
+  .item {
+    grid-template-columns: 13rem 1fr;
+    padding-left: var(--space-5);
+  }
+}

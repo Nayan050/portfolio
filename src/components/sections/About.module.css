@@ -1,0 +1,232 @@
+/* Opening statement — the one line a recruiter should read. */
+.lede {
+  max-width: var(--measure-lead);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-1);
+  text-align: var(--body-align);
+  hyphens: var(--body-hyphens);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+
+.main {
+  min-width: 0;
+}
+
+/* Justified prose needs hyphenation, otherwise the browser pays for the
+   flush right edge with rivers of white space between words. */
+.body {
+  max-width: var(--measure);
+  color: var(--text-2);
+  line-height: var(--leading-body);
+  text-align: var(--body-align);
+  hyphens: var(--body-hyphens);
+}
+
+.body + .body {
+  margin-top: var(--space-2);
+}
+
+/* Credentials checklist */
+.roles {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+}
+
+.role {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.625rem;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--text-1);
+}
+
+.roleIcon {
+  color: var(--accent-text);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* Spec sheet — hairline-ruled key/value pairs */
+.facts {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  align-self: start;
+  background: var(--surface);
+}
+
+.fact {
+  display: grid;
+  gap: var(--space-half);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--border);
+}
+
+.fact:first-child {
+  border-top: none;
+}
+
+/* The availability row. Tinted so the one fact a recruiter is scanning for
+   does not sit at the same weight as the rest of the sheet. */
+.factOpen {
+  background: var(--accent-soft);
+}
+
+/* Marker rides the label, not the value: .factValue is a flex container, so a
+   pseudo-element there becomes its own flex item and the wrapping text drops
+   to the next line, stranding the dot. */
+.factOpen .factLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  color: var(--accent-text);
+}
+
+.factOpen .factLabel::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.factLabel {
+  font-family: var(--font-display);
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.factValue {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.time {
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.zone {
+  font-weight: 500;
+  font-size: var(--text-micro);
+  color: var(--text-3);
+}
+
+/* Headline numbers. dt/dd are reversed visually so the figure leads while
+   the markup keeps its term-then-definition order. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3) 0;
+  margin: var(--space-5) 0 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+/* A short accent rule over each figure, the way a print table heads its
+   columns. The bare vertical dividers left the row reading as leftover space
+   between paragraphs rather than a deliberate block of figures. */
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-half);
+  padding-inline: var(--space-3);
+  border-left: 1px solid var(--border);
+}
+
+.stat::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--space-4) * -1 - 1px);
+  left: var(--space-3);
+  width: 1.75rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.stat:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.stat:first-child::before {
+  left: 0;
+}
+
+.statValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-snug);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-size: var(--text-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+@media (min-width: 720px) {
+  .roles {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-1) var(--space-3);
+  }
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 719px) {
+  /* Two-up on mobile: reset the rule on each row's first cell */
+  .stat:nth-child(odd) {
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1.5fr 1fr;
+    gap: var(--space-6);
+  }
+}

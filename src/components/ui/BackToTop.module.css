@@ -1,0 +1,62 @@
+/* Floating scroll-to-top control.
+   Sits under the modal layer so an open dialog covers it, and above ordinary
+   page content. Same round 1px-bordered family as the header toggle and the
+   hero's social buttons, one size up because it floats over content. */
+.button {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 2rem);
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  z-index: calc(var(--z-header) - 1);
+
+  display: grid;
+  place-items: center;
+  width: 2.875rem;
+  height: 2.875rem;
+
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  /* Translucent + blurred so it reads as floating above the page rather than
+     punched into it, and stays legible over text or a project image. */
+  background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-card);
+  color: var(--text-2);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.5rem);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    visibility var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.button:hover {
+  color: var(--accent-text);
+  border-color: var(--accent);
+  background: var(--bg-elev);
+}
+
+.icon {
+  /* One arrow in the set, flipped — no second glyph to keep in sync. */
+  transform: rotate(180deg);
+}
+
+/* Out of the way of a thumb on small screens: the hero's own CTAs and the
+   footer sit centre-left, so the corner stays clear. */
+@media (max-width: 599px) {
+  .button {
+    width: 2.625rem;
+    height: 2.625rem;
+  }
+}
